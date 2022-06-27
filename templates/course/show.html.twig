@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ course.name }} / StudyOn{% endblock %}
+
+{% block body %}
+    <h1>{{ course.name }}</h1>
+    <p>{{ course.description }}</p>
+    {% if course.lessons|length > 0 %}
+    <h2>Список уроков курса:</h2>
+    <div>
+        <ul>
+            {% for lesson in course.lessons|sort((a, b) => a.number <=> b.number) %}
+                <li><a class="link" href="{{ path('lesson_show', {'id': lesson.id}) }}">{{ lesson.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <div>
+        <a href="{{ path('course_index') }}">Вернуться к списку курсов</a>
+    </div>
+    <div>
+        <a class="edit" href="{{ path('course_edit', {'id': course.id}) }}">Редактировать курс</a>
+    </div>
+
+    {{ include('course/_delete_form.html.twig') }}
+    <a class="createLesson" href="{{ path('lesson_new', {'course_id': course.id}) }}">Создать урок</a>
+{% endblock %}

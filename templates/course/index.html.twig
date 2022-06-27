@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StudyOn{% endblock %}
+
+{% block body %}
+    <h1>Список курсов</h1>
+
+    <table class="table">
+        <tbody>
+        {% for course in courses %}
+            <tr>
+                <td><a class="link" href="{{ path('course_show', {'id': course.id}) }}">{{ course.name }}</a></td>
+                <td>{{ course.description }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br><br>
+    <div>
+        <a class="create" href="{{ path('course_new') }}">Создать новый курс</a>
+    </div>
+{% endblock %}
